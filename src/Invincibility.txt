@@ -1,0 +1,21 @@
+{$CLEO .cs} // Directive to compile as a CLEO script
+
+0000: NOP // NOP is used in order to avoid jump-at-zero offset error
+
+:loop
+0001: wait 0 ms
+
+00D6: if
+0256:   player $PLAYER_CHAR defined
+004D: jump_if_false @loop
+
+0222: set_player $PLAYER_CHAR health_to 250
+
+01F5: $PLAYER_ACTOR = create_emulated_actor_from_player $PLAYER_CHAR
+
+:immun_loop
+0001: wait 0 ms
+02AB: set_actor $PLAYER_ACTOR immunities BP 1 FP 1 EP 1 CP 1 MP 1
+0002: jump @immun_loop
+
+05DC: terminate_this_custom_script

@@ -1,0 +1,46 @@
+{$CLEO .cs} // Directive to compile as a CLEO script
+
+:start
+0000: NOP // NOP is used in order to avoid jump-at-zero offset error
+
+:player_loop
+0001: wait 0 ms
+00D6: if and
+0256:   player $PLAYER_CHAR defined
+00F5: player $PLAYER_CHAR 0 123.319 -829.9579 10.6286 radius 20.0 20.0 4.0
+004D: jf @player_loop
+0002: jump @lawyer_outdoor
+
+:lawyer_outdoor
+0001: wait 0 ms
+03BC: 0@ = create_sphere 123.319 -829.9579 10.6286 0.75
+0002: jump @sphere_check_outdoor
+
+:sphere_check_outdoor
+0001: wait 0 ms
+00D6: if
+00F5:   player $PLAYER_CHAR 0 123.319 -829.9579 10.6286 radius 1.0 1.0 2.0
+004D: jf @sphere_check_outdoor
+0002: jump @lawyer_indoor
+
+:lawyer_indoor
+0001: wait 0 ms
+04BB: select_interiour 6
+0055: put_player $PLAYER_CHAR at 139.8095 -1368.9276 13.1827
+03BD: destroy_sphere 0@
+03BC: 1@ = create_sphere 140.6784 -1371.3824 13.1827 0.75
+0002: jump @sphere_check_indoor
+
+:sphere_check_indoor
+0001: wait 0 ms
+00D6: if
+00F5:   player $PLAYER_CHAR 0 140.6784 -1371.3824 13.1827 radius 1.0 1.0 2.0
+004D: jf @sphere_check_indoor
+0002: jump @teleport_outdoor
+
+:teleport_outdoor
+0001: wait 0 ms
+04BB: select_interiour 0
+0055: put_player $PLAYER_CHAR at 117.8497 -825.8165 10.4633
+03BD: destroy_sphere 1@
+0002: jump @player_loop

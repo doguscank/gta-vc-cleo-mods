@@ -1,0 +1,20 @@
+{$CLEO .cs} // Directive to compile as a CLEO script
+
+0000: NOP // NOP is used in order to avoid jump-at-zero offset error
+
+:loop1
+0001: wait 0 ms
+0247: request_model #PCJ600
+0002: jump @loop2
+
+:loop2
+00D6: if
+0248:   model #PCJ600 available
+004D: jump_if_false @loop1
+0002: jump @loop3
+
+:loop3
+00A5: 0@ = create_car #PCJ600 at -838.7433 1295.9216 11.611
+0249: release_model #PCJ600
+01C3: remove_references_to_car 0@
+05DC: end_custom_thread
