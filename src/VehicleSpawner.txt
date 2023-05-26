@@ -17,4 +17,5 @@
 00A5: 0@ = create_car #PCJ600 at -838.7433 1295.9216 11.611
 0249: release_model #PCJ600
 01C3: remove_references_to_car 0@
-05DC: end_custom_thread
+
+0A93: end_custom_thread

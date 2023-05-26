@@ -1,5 +1,8 @@
 {$CLEO .cs} // Directive to compile as a CLEO script
 
+// -385.2228 -579.6104 25.3226 (1st pickup)
+// -388.3291 -559.0016 19.5742 (2nd pickup)
+
 :start
 0000: NOP // NOP is used in order to avoid jump-at-zero offset error
 
@@ -61,7 +64,7 @@
 03BD: destroy_sphere 1@
 // -385.2228 -579.6104 25.3226 pickup coords
 0213: 2@ = create_pickup #BRIEFCASE type 3 at -385.2228 -579.6104 25.3226
-0249: release_model #BRIEFCASE
+018A: 3@ = create_checkpoint_at -385.2228 -579.6104 25.3226
 0002: jump @check_pickup_1
 
 :check_pickup_1
@@ -74,8 +77,36 @@
 :remove_pickup_1
 0001: wait 0 ms
 0215: destroy_pickup 2@
+0164: disable_marker 3@
+0002: jump @create_pickup_2
+
+:create_pickup_2
+0001: wait 0 ms
+03BD: destroy_sphere 1@
+// -385.2228 -579.6104 25.3226 pickup coords
+0213: 2@ = create_pickup #BRIEFCASE type 3 at -388.3291 -559.0016 19.5742
+018A: 3@ = create_checkpoint_at -388.3291 -559.0016 19.5742
+0002: jump @check_pickup_2
+
+:check_pickup_2
+0001: wait 0 ms
+00D6: if
+0214:   pickup 2@ picked_up
+004D: jf @check_pickup_2
+0002: jump @remove_pickup_2
+
+:remove_pickup_2
+0001: wait 0 ms
+0215: destroy_pickup 2@
+0164: disable_marker 3@
+0002: jump @finish_mission
+
+:finish_mission
+0249: release_model #BRIEFCASE
 0001: wait 15000 ms
 00D6: if
 0118:   actor 0@ dead
 004D: jf @create_sphere
 0002: jump @player_loop
+
+0A93: end_custom_thread

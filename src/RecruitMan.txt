@@ -85,3 +85,5 @@
 01C2: mark_actor_as_no_longer_needed 0@
 0001: wait 15000 ms
 0002: jump @request_models
+
+0A93: end_custom_thread
