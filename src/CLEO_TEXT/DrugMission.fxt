@@ -1,0 +1,13 @@
+
+DM1 Drug Mission
+
+DM1_D1 There are two briefcases loaded with drugs around the city.
+DM1_D2 Go collect them and bring back to me.
+DM1_T1 What is my gain from this?
+DM1_D3 You will get half of the money.
+DM1_T2 Fine, I will help you.
+DM1_D4 You did a good job! Here is your slice.
+
+DM1_X1 Go collect the briefcases.
+DM1_X2 Deliver briefcases back to the dealer.
+ 
